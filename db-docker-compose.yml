@@ -1,0 +1,47 @@
+# version: '3.9'
+# services:
+#   # app:
+#   #   build: .
+#   #   volumes:
+#   #     - ./src:/app/src
+#   #     - /app/lib
+#   #   depends_on:
+#   #     - db
+#   #   networks:
+#   #     - my-network
+#   #   image: spring-app
+#   #   container_name: spring-app
+#   db:
+#     build:
+#         context: .
+#         dockerfile: Dockerfile.database
+#     image: postgres
+#     container_name: postgres
+#     ports:
+#       - "5432:5432"
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: postgres
+#       POSTGRES_DB: spring-test-api
+#     volumes:
+#       - ./data:/var/lib/postgresql/data
+# #     networks:
+# #       - my-network
+# # networks:
+# #   my-network:
+# #     driver: bridge
+
+
+#   # pgadmin:
+#   #   image: dpage/pgadmin4
+#   #   container_name: pgadmin4
+#   #   ports:
+#   #     - "8090:80"
+#   #   environment:
+#   #     PGADMIN_DEFAULT_EMAIL: pgadmin@pgadmin.com
+#   #     PGADMIN_DEFAULT_PASSWORD: pgadmin
+
+# # docker-compose -f db-docker-compose.yml build
+# # docker-compose -f db-docker-compose.yml up
+
+# # docker exec -it postgres psql -U postgres

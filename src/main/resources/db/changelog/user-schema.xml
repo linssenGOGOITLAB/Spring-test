@@ -1,0 +1,74 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="create-table" author="users">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+             <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+             <column name="email" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+             <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="users-add-note" author="users">
+        <addColumn tableName="users">
+            <column name="note" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="insert_users" author="your_name">
+        <insert tableName="users">
+            <column name="name" value="John"/>
+            <column name="username" value="john123"/>
+            <column name="email" value="john@example.com"/>
+            <column name="password" value="johnpassword"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="users-rollback-note" author="users">
+    <dropColumn tableName="users" columnName="note"/>
+    <rollback>
+        <addColumn tableName="users">
+            <column name="note" type="VARCHAR(255)">
+                <constraints nullable="true"/>
+            </column>
+        </addColumn>
+    </rollback>
+    </changeSet>
+
+      <changeSet id="insert_another_users" author="me">
+        <insert tableName="users">
+            <column name="name" value="test"/>
+            <column name="username" value="test123"/>
+            <column name="email" value="test@example.com"/>
+            <column name="password" value="testpassword"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert_another_users_1" author="me">
+        <insert tableName="users">
+            <column name="name" value="another_test"/>
+            <column name="username" value="another_test123"/>
+            <column name="email" value="another_test@example.com"/>
+            <column name="password" value="another_testpassword"/>
+        </insert>
+    </changeSet>
+    
+    
+
+</databaseChangeLog>

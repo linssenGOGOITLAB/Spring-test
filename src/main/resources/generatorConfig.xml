@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <context id="MyContext" targetRuntime="MyBatis3">
+
+    <!-- JDBC connection settings -->
+    <jdbcConnection driverClass="org.postgresql.Driver"
+      connectionURL="jdbc:postgresql://localhost:5432/spring-test-api"
+      userId="postgres"
+      password="postgres"/>
+
+    <!-- Java model classes generation settings -->
+    <javaModelGenerator targetPackage="com.example.spring_test.spring_test.generated.entity"
+      targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <!-- MyBatis SQL map generation settings -->
+    <sqlMapGenerator targetPackage="mapper"
+      targetProject="src/main/resources">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <!-- Java client interfaces generation settings -->
+    <javaClientGenerator type="XMLMAPPER"
+      targetPackage="com.example.spring_test.spring_test.generated.mapper"
+      targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+    <!-- Tables to generate code for -->
+    <!-- <table tableName="users">
+      <generatedKey column="id" sqlStatement="SELECT currval('user_id_seq')"
+        identity="true" />
+    </table> -->
+       <!-- specify tables to generate code for -->
+    <table tableName="user" />
+
+  </context>
+</generatorConfiguration>

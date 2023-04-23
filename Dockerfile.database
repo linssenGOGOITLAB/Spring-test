@@ -1,0 +1,17 @@
+
+FROM postgres:15
+
+# Install the hstore extension
+RUN apt-get update && apt-get install -y postgresql-contrib
+
+# Install the JDBC driver
+RUN apt-get update \
+    && apt-get install -y wget \
+    && mkdir -p /usr/share/java \
+    && wget https://jdbc.postgresql.org/download/postgresql-42.5.4.jar -O /usr/share/java/postgresql.jar \
+    && chmod 644 /usr/share/java/postgresql.jar
+
+# Enable the hstore extension
+RUN echo "CREATE EXTENSION IF NOT EXISTS hstore;" > /docker-entrypoint-initdb.d/hstore.sql
+
+CMD ["postgres"]
