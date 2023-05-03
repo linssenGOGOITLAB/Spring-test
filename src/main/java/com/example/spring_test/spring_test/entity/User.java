@@ -18,6 +18,18 @@ public class User {
     private String password;
     private String note;
 
+    public User() {
+        // empty constructor
+    }
+    
+    public User(@NotNull String name, String username, @Email String email, String password, String note) {
+        this.name = name;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.note = note;
+    }
+    
     public Long getId() {
         return id;
     }

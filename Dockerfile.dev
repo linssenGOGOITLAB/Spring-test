@@ -1,28 +1,9 @@
-# # Can only have 1 FROM
-# FROM openjdk:17-jdk-alpine AS build
-
-# RUN apk update && \
-#     apk add inotify-tools
-
-# WORKDIR /app
-
-# COPY .mvn/ .mvn
-# COPY mvnw pom.xml ./
-# RUN chmod +x mvnw && ./mvnw dependency:go-offline
-
-# COPY src ./src
-
-# ENTRYPOINT ["./mvnw", "spring-boot:run"]
-
-# EXPOSE 8080
-
-
 # Use the `eclipse-temurin:17-jdk-alpine` image as the base image for this container
 FROM eclipse-temurin:17-jdk-alpine AS build
 
 # Update the package index and install the `inotify-tools` package
 RUN apk update && \
-    apk add inotify-tools
+    apk add inotify-tools git curl
 
 # Set the working directory for the container to `/app`
 WORKDIR /app

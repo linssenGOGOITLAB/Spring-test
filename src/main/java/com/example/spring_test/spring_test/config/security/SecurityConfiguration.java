@@ -21,6 +21,7 @@ public class SecurityConfiguration {
         httpSecurity.csrf().disable()
         .authorizeHttpRequests()
             .requestMatchers("/", "/**").permitAll()
+            .requestMatchers("/h2-console/**").permitAll() // Allow access to H2 console
             .anyRequest().authenticated()
             .and()
         .formLogin()

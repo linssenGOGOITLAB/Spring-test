@@ -7,7 +7,7 @@
 
     <!-- JDBC connection settings -->
     <jdbcConnection driverClass="org.postgresql.Driver"
-      connectionURL="jdbc:postgresql://localhost:5432/spring-test-api"
+      connectionURL="jdbc:postgresql://postgressql:5432/spring-test-api"
       userId="postgres"
       password="postgres"/>
 

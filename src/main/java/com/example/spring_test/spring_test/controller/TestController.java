@@ -11,10 +11,10 @@ import com.example.spring_test.spring_test.entity.MyResource;
 @RestController
 @RequestMapping("/api")
 public class TestController {
-
+    
     @GetMapping("/test")
     public String test() {
-        return "Another Test";
+        return "Another Test test";
     }
 
     @GetMapping("/hello")
@@ -27,6 +27,7 @@ public class TestController {
     public String login(){
         return "Login Form";
     }
+    
 
     @GetMapping("/resource")
     public EntityModel<MyResource> getResource() {

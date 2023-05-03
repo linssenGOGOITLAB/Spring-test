@@ -14,6 +14,11 @@ public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, St
         this.userMapper = userMapper;
     }
 
+    // Add a no-args constructor
+    public UniqueEmailValidator() {
+        this.userMapper = null;
+    }
+
     @Override
     public void initialize(UniqueEmail uniqueEmail) {
     }
