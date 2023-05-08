@@ -3,24 +3,33 @@ FROM eclipse-temurin:17-jdk-alpine AS build
 
 # Update the package index and install the `inotify-tools` package
 RUN apk update && \
-    apk add inotify-tools git curl
+    apk add inotify-tools git curl && \
+    apk --no-cache add nodejs npm
 
 # Set the working directory for the container to `/app`
-WORKDIR /app
+WORKDIR /app/backend/
 
 # Copy the `.mvn/` directory, `mvnw` file and `pom.xml` file from the local machine to the container
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
+COPY ./backend/.mvn/ .mvn
+COPY ./backend/mvnw ./backend/pom.xml ./
 
 # Make the `mvnw` file executable
 RUN chmod +x mvnw
-# RUN chmod +x mvnw && ./mvnw dependency:go-offline # Download the maven dependency in the container
 
 # Copy the `src/` directory from the local machine to the container
-COPY src ./src
+COPY ./backend/src ./src
+
+WORKDIR /app
+
+# Change the working directory to `frontend` and run `npm install`
+COPY frontend ./frontend
+WORKDIR /app/frontend
+RUN npm install --loglevel verbose
+
+# Change the working directory back to `/app`
+WORKDIR /app/backend
 
 # Set the entrypoint for the container to be `./mvnw spring-boot:run`
 ENTRYPOINT ["./mvnw", "spring-boot:run"]
 
-# Expose port 8080 on the container
-EXPOSE 8080
+EXPOSE 8080 8000

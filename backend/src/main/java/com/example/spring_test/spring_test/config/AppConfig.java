@@ -34,5 +34,6 @@ public class AppConfig {
         sessionFactory.setDataSource(dataSource());
         return sessionFactory.getObject();
     }
+    
 
 }

@@ -2,10 +2,6 @@
     "name": "spring-boot-api",
     "service": "app",
     "dockerComposeFile": "dev-docker-compose.yml",
-    // "postCreateCommand": "mkdir -p /home/vscode/.vscode-server/extensions && cp -r /workspaces/.codespaces/extensions/* /home/vscode/.vscode-server/extensions",
-    // "mounts": [
-	// 	"source=${localWorkspaceFolder}/customizations/vscode/extensions,target=/home/vscode/.vscode-server/extensions,type=bind,consistency=cached"
-	// ],
 	"workspaceFolder": "/app",
 	"customizations": {
 		"vscode": {
