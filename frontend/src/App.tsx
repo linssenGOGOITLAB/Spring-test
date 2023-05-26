@@ -9,15 +9,27 @@ function App() {
   const [count, setCount] = useState(0)
   const [data, setData] = useState(null);
 
+  /**
+   * Reference: https://react.dev/learn/synchronizing-with-effects#fetching-data
+   * https://react.dev/learn/synchronizing-with-effects#fetching-data
+   * If your Effect fetches something, the cleanup function should either abort the fetch or ignore its result
+   */
   useEffect(() => {
+    let ignore = false;
     const fetchData = async () => {
       const response = await fetch(`${apiUrl}/user`);
       const jsonData = await response.json();
-      console.log(jsonData);
-      setData(jsonData);
+      if (!ignore) {
+        console.log(jsonData);
+        setData(jsonData);
+      }
     };
 
     fetchData();
+
+    return () => {
+      ignore = true;
+    }
   }, []);
 
   return (
@@ -30,7 +42,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1>TestVite   + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}

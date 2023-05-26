@@ -15,7 +15,7 @@ import com.example.spring_test.spring_test.entity.User;
 
 @Mapper
 public interface UserMapper{
-    @Select("select id, name, email, username where username = #{username}")
+    @Select("select id, name, email, username FROM users where username = #{username} LIMIT 1")
     User findByUsername(@Param("username") String username);
 
     @Select("SELECT id, username, name, email, password, note FROM users")

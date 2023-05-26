@@ -30,6 +30,9 @@ RUN npm install --loglevel verbose
 WORKDIR /app/backend
 
 # Set the entrypoint for the container to be `./mvnw spring-boot:run`
-ENTRYPOINT ["./mvnw", "spring-boot:run"]
+# ENTRYPOINT ["./mvnw", "spring-boot:run"]
+
+# Add a command to keep the container running
+CMD ["tail", "-f", "/dev/null"]
 
 EXPOSE 8080 8000

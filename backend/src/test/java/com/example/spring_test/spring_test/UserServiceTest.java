@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -23,6 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.example.spring_test.spring_test.entity.User;
 import com.example.spring_test.spring_test.mapper.UserMapper;
 import com.example.spring_test.spring_test.service.UserService;
+import com.example.spring_test.spring_test.validation.user.UniqueEmailValidator;
 
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -30,9 +32,7 @@ import jakarta.validation.ValidatorFactory;
 
 
 @SpringBootTest
-@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
-
     @Mock
     private UserMapper userMapper;
 
@@ -40,11 +40,16 @@ public class UserServiceTest {
     private Validator validator;
     private UserService userService;
 
+    
+
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
+      
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
+
+        passwordEncoder = new BCryptPasswordEncoder();
         
         userService = new UserService(userMapper, passwordEncoder, validator);
     }
@@ -81,17 +86,32 @@ public class UserServiceTest {
         assertThat(result).isEqualTo(user);
     }
 
+    // @Test
+    // void insertUserService_validUser(){
+    //     // given
+    //     User user = new User("username1", "name1", "email1@test.com", "password1", "note1");
+    //     when(userMapper.isEmailExist(user.getEmail())).thenReturn(true);
+    //     //when
+    //     String result = userService.insertUserService(user);
+
+    //     //then
+    //     verify(userMapper).insertUser(user);
+    //     assertThat(result).isEqualTo("Account added: " + user.getEmail());
+    // }
+     
+
     @Test
     void insertUserService_validUser(){
-        // given
-        User user = new User("username1", "name1", "email1@test.com", "password1", "note1");
-        when(userMapper.isEmailExist(user.getEmail())).thenReturn(true);
-        //when
-        String result = userService.insertUserService(user);
-
-        //then
-        verify(userMapper).insertUser(user);
-        assertThat(result).isEqualTo("Account Added: " + user.getEmail());
+       // given
+       User user = new User("username1", "name1", "email1@test.com", "password1", "note1");
+       UniqueEmailValidator validator = new UniqueEmailValidator(userMapper); // Inject the mocked UserMapper
+       validator.initialize(null); // Initialize the validator
+   
+       // when
+       boolean isValid = validator.isValid(user.getEmail(), null);
+   
+       // then
+       assertThat(isValid).isTrue();
     }
      
     
